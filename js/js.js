@@ -9,6 +9,7 @@
   };
   //Initialisera Firebase typ, nån sa åt mig att ctrl+c:a det här. (google d.v.s)
   firebase.initializeApp(config);
+  var provider = new firebase.auth.GoogleAuthProvider();
 
 //Init Databas mot Firebase.
 var database = firebase.database();
@@ -20,4 +21,26 @@ function register(userId, pass, email) {
     password : pass
   });
 }
+
+//Registrerar med Google Authentication för Google-konto. Den får inte vara öppnad från filsystemet för att det ska fungera, måste öppnas i HTTP/HTTPS - Om ditt konto redan finns loggar den in istället. Ska göra det lite smidigare sen men funkar för tillfället.
+function registerWithGoogleAuth()
+{
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+}
+
 
