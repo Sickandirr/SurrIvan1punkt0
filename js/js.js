@@ -45,10 +45,13 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 }
 
 
+
 var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!'
   }
+
+  
   })
 

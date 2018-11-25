@@ -1,30 +1,115 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Ska kanske läggas längst ner nu för tiden, är inte säker. Initialiserar FireBase -->
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-	<!-- Including Vue.js-->
-		<!-- development version, includes helpful console warnings -->
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
-</script>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>SurrIvan - Register</title>
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+	<link type="text/css" rel="stylesheet" href="css/Main.css"/>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+	<script src="js/js.js"></script>
 	
+  </head>
 
-</head>
-<body>
-		<div id="app">
-				{{ message }}
-			 </div>
+  <body>
+    <!-- Our application root element -->
+    <div id="app">
+		<!--Container of everything-->
+      <b-container>
+		  <!--Jumbotron-->
+        <b-jumbotron header="The SurrIvan Project"
+                     lead="We are taking over the world."
+        >
+		  <p>You can choose to either register with Google Auth or with your email address</p>
+		  
+		  <!-- Register with Google Auth button-->
+		  <b-btn variant="primary" href="#">Register with Google Auth</b-btn>
+		<!-- Register with email button-->
+		<b-btn v-b-toggle.collapse1 variant="primary" id="emailRegButton">Register with email</b-btn>
+		<!--Collapsed content-->
+  		<b-collapse id="collapse1" class="mt-2">
+    	<b-card>
+				<b-form>
+					<!--Username input field-->
+						<b-form-group horizontal
+									  :label-cols="4"
+									  description="Let us know your username"
+									  label="Enter your username"
+						>
+						   <b-form-input text="username"></b-form-input>
+						</b-form-group>
+						<!--Password input field-->
+						<b-form-group horizontal
+						:label-cols="4"
+						description="Please use the same password as on you bank account"
+						label="Enter password"
+						type="password">
+						<b-form-input type="password"></b-form-input>
+						</b-form-group>
+						<!--Email input field-->
+						<b-form-group horizontal
+						:label-cols="4"
+						description="Please use the same email as on you bank account"
+						label="Enter email"
+						type="email">
+						<b-form-input type="email"></b-form-input>
+						</b-form-group>
+						<b-btn variant="primary" href="#">Register</b-btn>
+						
+						</b-form>
+   		 </b-card>
+ 		 </b-collapse>
+
+		</b-jumbotron>
+		
 
 	
+      </b-container>
+    </div>
 
-<h1>SurrIvan 1.0 - Return of the pasto</h1>
+    <!-- Start running your app -->
+    <script>
+      window.app = new Vue({
+        el: "#app",
+        data: {
+          name: ''
+        },
+        computed: {
+          showAlert() {
+            return this.name.length > 4 ? true : false;
+          }
+        }
+      })
+    </script>
 
-<p>Hej, hoppas det här funkar. =)</p>
-
-<!-- Ja, skräp. Ville bara calla på min fina register funktion -->
-<button onclick="register('IvanTest', 'Test1234', 'ivan@larsson.test')">Register</button>
-<button onclick="registerWithGoogleAuth()">Register With Google Auth</button>
-<script src="js/js.js">//Skriver kommentaren här för jag hatar <!--- grejen, initialisera js.js i js mappen. Rekursivt.</script>
-</body>
+  </body>
 </html>
+
+
+
+
+
+<!-- Här ligger dina gamla knappar.-->
+<!--
+	 <button onclick="register('IvanTest', 'Test1234', 'ivan@larsson.test')">Register</button>
+<button onclick="registerWithGoogleAuth()">Register With Google Auth</button> 
+-->
+
+<!-- 
+	TODO: koppla mina input fields till register funktionen
+	https://vuejs.org/v2/guide/events.html
+
+	Initialisera firebase i HTML igen (yes jag tog bort den, sorry 'bout dat')
+
+-->

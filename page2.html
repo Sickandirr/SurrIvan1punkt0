@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>SurrIvan - Page2</title>
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+	<link type="text/css" rel="stylesheet" href="css/Main.css"/>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+	
+  </head>
+
+  <body>
+    <!-- Our application root element -->
+    <div id="app">
+				<div>
+						<b-embed type="iframe"
+										 aspect="16by9"
+										 src="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+										 allowfullscreen
+						></b-embed>
+					</div>
+    </div>
+
+    <!-- Start running your app -->
+    <script>
+      window.app = new Vue({
+        el: "#app",
+        data: {
+          name: ''
+        },
+        computed: {
+          showAlert() {
+            return this.name.length > 4 ? true : false;
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+<!-- Här ligger dina gamla knappar.-->
+<!--
+	 <button onclick="register('IvanTest', 'Test1234', 'ivan@larsson.test')">Register</button>
+<button onclick="registerWithGoogleAuth()">Register With Google Auth</button> 
+-->
+
+<!-- 
+	TODO: koppla mina input fields till register funktionen
+	https://vuejs.org/v2/guide/events.html
+
+-->
