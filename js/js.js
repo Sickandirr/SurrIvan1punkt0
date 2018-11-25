@@ -1,3 +1,4 @@
+
 //Register funktion, kallas när man klickar på knappen atm med standard värden.
   var config = {
     apiKey: "AIzaSyC-K8CHZVB9ZgNA6f0rk-QSLSzSQaCOCr0",
@@ -43,4 +44,11 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 });
 }
 
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+  })
 
