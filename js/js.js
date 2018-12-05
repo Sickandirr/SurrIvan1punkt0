@@ -38,15 +38,14 @@ var app = new Vue({
     validation: function () {
       return {
         name: !!this.newUser.name.trim(),
-        email: emailRE.test(this.newUser.email),
-        password: !!this.newUser.password
+        email: emailRE.test(this.newUser.email)
       }
     },
     //Kollar så att emailen är valid. Vet inte hur noga den är, snodd.
     isValid: function () {
 
       var validation = this.validation
-      alert(this.newUser.email);
+
       return Object.keys(validation).every(function (key) {
         return validation[key]
       })
@@ -55,9 +54,7 @@ var app = new Vue({
   // methods
   methods: {
     addUser: function () {
-
       if (this.isValid) {
-
         usersRef.push(this.newUser)
         this.newUser.name = ''
         this.newUser.email = ''
@@ -80,6 +77,7 @@ var app = new Vue({
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         // ...
+        console.log(errorcode);
       });
     },
     removeUser: function (user) {
