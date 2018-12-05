@@ -9,49 +9,82 @@
     messagingSenderId: "882005054314"
   };
   //Initialisera Firebase typ, nån sa åt mig att ctrl+c:a det här. (google d.v.s)
-  firebase.initializeApp(config);
-  var provider = new firebase.auth.GoogleAuthProvider();
+firebase.initializeApp(config)
 
-//Init Databas mot Firebase.
-var database = firebase.database();
+var usersRef = firebase.database().ref('users');
+var provider = new firebase.auth.GoogleAuthProvider();
 
-//Registrerar, har mail username och osaltat pass för tillfället. Ska kolla lite mer på google auth i FireBase efter jag fixat login.
-function register(userId, pass, email) {
-  firebase.database().ref('users/' + userId).set({
-    email: email,
-    password : pass
-  });
-}
+var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-//Registrerar med Google Authentication för Google-konto. Den får inte vara öppnad från filsystemet för att det ska fungera, måste öppnas i HTTP/HTTPS - Om ditt konto redan finns loggar den in istället. Ska göra det lite smidigare sen men funkar för tillfället.
-function registerWithGoogleAuth()
-{
-firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  var user = result.user;
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-}
-
-
-
+window.onload = function() {
 var app = new Vue({
+  // element to mount to
   el: '#app',
+  // initial data
   data: {
-    message: 'Hello Vue!'
+    newUser: {
+      name: '',
+      email: '',
+      password: ''
+    }
+  },
+  // firebase binding
+  // https://github.com/vuejs/vuefire
+  firebase: {
+    users: usersRef
+  },
+  // computed property for form validation state
+  computed: {
+    validation: function () {
+      return {
+        name: !!this.newUser.name.trim(),
+        email: emailRE.test(this.newUser.email),
+        password: !!this.newUser.password
+      }
+    },
+    //Kollar så att emailen är valid. Vet inte hur noga den är, snodd.
+    isValid: function () {
+
+      var validation = this.validation
+      alert(this.newUser.email);
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
+    }
+  },
+  // methods
+  methods: {
+    addUser: function () {
+
+      if (this.isValid) {
+
+        usersRef.push(this.newUser)
+        this.newUser.name = ''
+        this.newUser.email = ''
+        this.newUser.password = ''
+      }
+    },
+    addGmailAuth: function () {
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+    },
+    removeUser: function (user) {
+      usersRef.child(user['.key']).remove()
+    }
   }
-
-  
-  })
-
+})
+}

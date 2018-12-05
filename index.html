@@ -9,16 +9,18 @@
 
     <title>SurrIvan - Register</title>
 
-    <!-- Required Stylesheets -->
+		<!-- Required Stylesheets -->
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
 	<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
 	<link type="text/css" rel="stylesheet" href="css/Main.css"/>
 
+	<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
     <!-- Required scripts -->
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 	<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 	<script src="js/js.js"></script>
+	
 	
   </head>
 
@@ -34,7 +36,7 @@
 		  <p>You can choose to either register with Google Auth or with your email address</p>
 		  
 		  <!-- Register with Google Auth button-->
-		  <b-btn variant="primary" href="#">Register with Google Auth</b-btn>
+		  <b-btn variant="primary" v-on:click="addGmailAuth">Register with Google Auth</b-btn>
 		<!-- Register with email button-->
 		<b-btn v-b-toggle.collapse1 variant="primary" id="emailRegButton">Register with email</b-btn>
 		<!--Collapsed content-->
@@ -47,7 +49,7 @@
 									  description="Let us know your username"
 									  label="Enter your username"
 						>
-						   <b-form-input text="username"></b-form-input>
+						   <b-form-input text="username" v-model="newUser.username"></b-form-input>
 						</b-form-group>
 						<!--Password input field-->
 						<b-form-group horizontal
@@ -55,7 +57,7 @@
 						description="Please use the same password as on you bank account"
 						label="Enter password"
 						type="password">
-						<b-form-input type="password"></b-form-input>
+						<b-form-input type="password" v-model="newUser.password"></b-form-input>
 						</b-form-group>
 						<!--Email input field-->
 						<b-form-group horizontal
@@ -63,9 +65,9 @@
 						description="Please use the same email as on you bank account"
 						label="Enter email"
 						type="email">
-						<b-form-input type="email"></b-form-input>
+						<b-form-input type="email" v-model="newUser.email"></b-form-input>
 						</b-form-group>
-						<b-btn variant="primary" href="#">Register</b-btn>
+						<b-btn variant="primary" v-on:click="addUser">Register</b-btn>
 						
 						</b-form>
    		 </b-card>
@@ -78,7 +80,7 @@
       </b-container>
     </div>
 
-    <!-- Start running your app -->
+    <!-- Start running your app 
     <script>
       window.app = new Vue({
         el: "#app",
@@ -95,7 +97,7 @@
 
   </body>
 </html>
-
+-->
 
 
 
