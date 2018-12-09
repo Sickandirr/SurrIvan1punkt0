@@ -66,11 +66,17 @@
 						type="email">
 						<b-form-input type="email" v-model="newUser.email"></b-form-input>
 						</b-form-group>
-						<b-btn variant="primary" v-on:click="addUser">Register</b-btn>
+						<b-btn variant="primary" v-on:click="checkForm">Register</b-btn>
 						
 						</b-form>
    		 </b-card>
- 		 </b-collapse>
+			</b-collapse>
+			<p v-if="errors.length">
+				<b>Please correct the following error(s):</b>
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+			</p>
 
 		</b-jumbotron>
 		

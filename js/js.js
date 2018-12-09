@@ -26,7 +26,9 @@ var app = new Vue({
       name: '',
       email: '',
       password: ''
-    }
+    },
+    errors: []
+
   },
   // firebase binding
   // https://github.com/vuejs/vuefire
@@ -82,6 +84,22 @@ var app = new Vue({
     },
     removeUser: function (user) {
       usersRef.child(user['.key']).remove()
+    },
+    checkForm: function (e) {
+      if (this.name && this.age) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push('Name required.');
+      }
+      if (!this.password) {
+        this.errors.push('Password required.');
+      }
+
+      e.preventDefault();
     }
   }
 })
