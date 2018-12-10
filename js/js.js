@@ -36,6 +36,7 @@ var app = new Vue({
     users: usersRef
   },
   // computed property for form validation state
+  // trodde den här kolla om user finns i db:n men verkar inte göra det..
   computed: {
     validation: function () {
       return {
@@ -62,6 +63,7 @@ var app = new Vue({
         this.newUser.email = ''
         this.newUser.password = ''
       }
+      //router.go(page2.html) -- HÄR TÄNKTE JAG REDIRECTA, KAN SÄKERT GÖRA DET FULT MEN VILL GÖRA RÄTT :(
     },
     addGmailAuth: function () {
       firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -86,17 +88,23 @@ var app = new Vue({
       usersRef.child(user['.key']).remove()
     },
     checkForm: function (e) {
-      if (this.name && this.age) {
+      console.log("Username: " + this.newUser.name + " Password: " + this.newUser.password + " Email: " + this.newUser.email)
+      if (this.newUser.name && this.newUser.password && this.isValid) {
+        this.addUser();
         return true;
       }
 
       this.errors = [];
 
-      if (!this.name) {
+      if (!this.newUser.name) {
         this.errors.push('Name required.');
       }
-      if (!this.password) {
+      if (!this.newUser.password) {
         this.errors.push('Password required.');
+      }
+      if(!emailRE.test(this.newUser.email))
+      {
+        this.errors.push('Valid email required.');
       }
 
       e.preventDefault();
