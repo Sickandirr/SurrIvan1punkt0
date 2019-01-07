@@ -63,7 +63,7 @@ var app = new Vue({
         this.newUser.email = ''
         this.newUser.password = ''
       }
-      //router.go(page2.html) -- HÄR TÄNKTE JAG REDIRECTA, KAN SÄKERT GÖRA DET FULT MEN VILL GÖRA RÄTT :(
+      window.location.href = "page2.html";
     },
     addGmailAuth: function () {
       firebase.auth().signInWithPopup(provider).then(function(result) {
